@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --terminal-green: #00ff41;
+  --bg-dark: #0a0a0a;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--terminal-green) var(--bg-dark);
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--terminal-green);
+  border-radius: 0;
+}
+
+/* CRT flicker effect */
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.98; }
+  51% { opacity: 1; }
+  52% { opacity: 0.97; }
+}
+
+html {
+  animation: flicker 0.15s infinite;
+}
+
+/* Selection color */
+::selection {
+  background: var(--terminal-green);
+  color: var(--bg-dark);
+}
+
+/* Custom font smoothing for terminal look */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Glowing text utility */
+.text-glow {
+  text-shadow: 0 0 10px var(--terminal-green), 0 0 20px var(--terminal-green);
+}
+
+/* Pulse animation for status indicators */
+@keyframes status-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
+}
+
+.status-pulse {
+  animation: status-pulse 2s ease-in-out infinite;
+}
+
+/* Grid fade-in animation */
+@keyframes grid-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.grid-item-appear {
+  animation: grid-fade-in 0.3s ease-out forwards;
+}
+
+/* Responsive grid columns - extend Tailwind */
+@media (min-width: 1024px) {
+  .lg\:grid-cols-16 {
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+  }
+}
+
+/* Mobile touch feedback */
+@media (hover: none) {
+  .group:active {
+    transform: scale(0.95);
+  }
+}
